@@ -1,0 +1,46 @@
+body{
+    background: linear-gradient(0.25turn,#9C27B0,#00BCD4,#8BC34A);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container{
+    display: grid;
+    grid-template-columns: repeat(4,115px);
+    grid-template-rows: repeat(6,115px);
+    grid-template-areas: 
+    "d d d d"
+    "s s s s"
+    "s s s s"
+    "s s s s"
+    "s s s s"
+    "c c e e";
+    gap:4px;
+}
+.display{
+    display: flex;
+    font-size: 92px;
+    font-weight: 700;
+    justify-content: end;
+    align-items: center;
+    grid-area: d;
+    border: 1px solid black;
+    box-shadow: black;
+    background-color: white;
+    border-radius: 0.3rem;
+    padding:4px;
+    overflow: hidden;
+}
+button{
+    /* padding: 16px; */
+    font-size: 36px;
+    font-weight: 700;
+    border-radius: 0.3rem;
+}
+button.equal{
+    grid-area: e;
+}
+button.clear{
+    grid-area: c;
+}
