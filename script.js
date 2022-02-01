@@ -49,7 +49,7 @@ function operate(leftOp, Op, rightOp) {
 //operate on left operand and right operand
 function calculate() {
     displayArea.textContent = operate(left, operator, right);
-    console.log(displayArea.textContent);
+    // console.log(displayArea.textContent);
     left = displayArea.textContent;
     right = '';
 }
@@ -78,7 +78,7 @@ numberBtns.forEach(n => {
                 right = displayArea.textContent;
             }
         }
-        console.log(`left: ${left}, right: ${right}`);
+        // console.log(`left: ${left}, right: ${right}`);
     })
 })
 
