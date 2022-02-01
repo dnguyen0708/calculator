@@ -4,9 +4,8 @@ const operators = document.querySelectorAll('.operator');
 const clearBtn = document.querySelector(".clear");
 const equalBtn = document.querySelector('.equal');
 const dotBtn = document.querySelector('.point');
-let opClicked = false;
+let opClicked = false, numberClicked = false, dotClicked = false;
 let left = 0, operator = '', right = 0;
-
 
 //functions
 function checkMaxLength() {                     //only allow user to input max of 10 digits
@@ -17,10 +16,10 @@ function checkMaxLength() {                     //only allow user to input max o
 }
 
 function add(n1, n2) {
-    return n1 + n2;
+    return (n1 + n2).toPrecision(5);
 }
 function subtract(n1, n2) {
-    return n1 - n2;
+    return (n1 - n2).toPrecision(5);
 }
 function multiply(n1, n2) {
     result = n1 * n2;
@@ -50,6 +49,7 @@ function operate(leftOp, Op, rightOp) {
 //operate on left operand and right operand
 function calculate() {
     displayArea.textContent = operate(left, operator, right);
+    console.log(displayArea.textContent);
     left = displayArea.textContent;
     right = 0;
 }
@@ -63,10 +63,13 @@ function clearDisplay() {
 //listening for events
 numberBtns.forEach(n => {
     n.addEventListener('click', function (e) {
+        numberClicked = true;
         if (!checkMaxLength()) {
-            if (displayArea.textContent == 0 || opClicked) {
+            // if(displayArea.textContent.includes('0.') && opClicked)
+            if (opClicked || displayArea.textContent === '0') {
                 opClicked = false;
                 displayArea.textContent = '';
+                dotClicked = false;
             }
             displayArea.textContent += this.textContent;
         }
@@ -75,6 +78,8 @@ numberBtns.forEach(n => {
 
 operators.forEach(op => {
     op.addEventListener('click', function (e) {
+        e.preventDefault();
+        numberClicked = false;
         opClicked = true;
         if (!left) {
             left = displayArea.textContent;
@@ -90,13 +95,19 @@ operators.forEach(op => {
 })
 
 dotBtn.addEventListener('click', function (e) {
-    displayArea.textContent += '.';
+    if (!dotClicked) {
+        displayArea.textContent += '.';
+        dotClicked = true;
+    }
+
 })
 
 clearBtn.addEventListener('click', clearDisplay);
 
 equalBtn.addEventListener('click', () => {
-    if (!right) right = displayArea.textContent;
+    // if (!right) right = displayArea.textContent;
+    if (numberClicked) right = displayArea.textContent;
+    if (!right) return;
     calculate();
     operator = '';
 });
