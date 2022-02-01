@@ -3,13 +3,13 @@ const numberBtns = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const clearBtn = document.querySelector(".clear");
 const equalBtn = document.querySelector('.equal');
+const dotBtn = document.querySelector('.point');
 let opClicked = false;
 let left = 0, operator = '', right = 0;
-let result = 0;
 
 
 //functions
-function checkMaxLength() {
+function checkMaxLength() {                     //only allow user to input max of 10 digits
     if (displayArea.textContent.length >= 10) {
         return true;
     }
@@ -32,6 +32,9 @@ function divide(n1, n2) {
     if (result.toString().length >= 10) return result.toExponential(4);
     return n1 / n2;
 }
+function mod(n1, n2) {
+    return n1 % n2;
+}
 function operate(leftOp, Op, rightOp) {
     leftOp = parseFloat(leftOp);
     rightOp = parseFloat(rightOp);
@@ -40,9 +43,11 @@ function operate(leftOp, Op, rightOp) {
         case '-': return subtract(leftOp, rightOp);
         case '*': return multiply(leftOp, rightOp);
         case '/': return divide(leftOp, rightOp);
+        case '%': return mod(leftOp, rightOp);
         default: return displayArea.textContent;
     }
 }
+//operate on left operand and right operand
 function calculate() {
     displayArea.textContent = operate(left, operator, right);
     left = displayArea.textContent;
@@ -80,10 +85,13 @@ operators.forEach(op => {
             calculate();
             operator = this.textContent;
         }
-        console.log(`left: ${left}, right: ${right}, operator: ${operator}`)
+        // console.log(`left: ${left}, right: ${right}, operator: ${operator}`)
     })
 })
 
+dotBtn.addEventListener('click', function (e) {
+    displayArea.textContent += '.';
+})
 
 clearBtn.addEventListener('click', clearDisplay);
 
