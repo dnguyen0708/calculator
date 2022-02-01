@@ -38,9 +38,18 @@ button{
     font-weight: 700;
     border-radius: 0.3rem;
 }
+.operator{
+    background-color: #eb9e34;
+    color: white;
+}
 button.equal{
     grid-area: e;
+    background-color: green;
+    color: white;
+    
 }
 button.clear{
     grid-area: c;
+    background-color: red;
+    color:white;
 }
